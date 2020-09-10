@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+.clearfix::after {
+content: “”;
+display: block;
+clear: both;
+}
+
+body {
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1 {
+	font-size: 30px;
+}
+
+ul {
+	margin: 5px 5px;
+	padding: 0;
+	margin-left: 50px;
+	vertical-align: top;
+}
+
+ul li {
+	display: inline;
+}
+
+.addbutton {
+	display: inline-block;
+	width: 200px;
+	height: 30px;
+	font-size: 20px;
+	background-color: #797979;
+	margin-left: 48px;
+	vertical-align: top;
+}
+
+.searchbox {
+	display: inline-block;
+	width: 300px;
+	margin-left: 400px;
+	vertical-align: bottom;
+}
+
+.searchtable {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-right: 40px;
+}
+
+.searchtable td {
+	padding: 0px 0px;
+}
+
+.searchtext {
+	width: 200px;
+	height: 20px;
+	align: right;
+}
+
+.searchbtn {
+	font-size: 15px;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	background-color: #FFF;
+}
+
+
+.listcss {
+	width: 90%;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.listcss tr th {
+	height: 50px;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.listcss tr td {
+	height: 40px;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.listcss tr td p {
+	margin: 0px auto;
+	text-align: center;
+}
+
+
+th {
+	background-color: #00bfff;
+	width: 100%px;
+	text-align: center;
+}
+
+tr {
+	text-align: center;
+}
+
+.threereader {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 380px;
+}
+
+.threereader .tooltip {
+    visibility: hidden;
+    width: 380px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    font-size:15px;
+    z-index: 1;
+    margin-top:10px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.threereader:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+.threereader .tooltip::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.borderset {
+	border-collapse: collapse;
+}
+
+.tablebtn1 {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+	color: #000;
+	line-height: 40px;
+	border: 1px solid #000;
+
+	height: 100%;
+	width: 48%;
+	font-size: 15px;
+	background-color: #797979;
+}
+
+.tablebtn2 {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	float: right;
+	color: #000;
+	line-height: 40px;
+	border: 1px solid #000;
+
+	height: 100%;
+	width: 48%;
+	font-size: 15px;
+	background-color: #797979;
+}

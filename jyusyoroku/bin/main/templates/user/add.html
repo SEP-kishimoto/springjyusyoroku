@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>住所録登録</title>
+<link href="/css/add.css" rel="stylesheet"></link>
+</head>
+<body>
+<h1>住所録管理システム：住所録登録</h1>
+<form th:action="@{/user/addcheck}" th:object="${userRequest}" th:method="post">
+<table>
+      <tr>
+        <th class="cell_title">名前*</th>
+        <th>&nbsp;:&nbsp;</th>
+        <td><input type="text" th:field="*{name}"></td>
+      </tr>
+      <tr>
+        <th class="cell_title">住所*</th>
+        <th>&nbsp;:&nbsp;</th>
+        <td><input type="text" class="address_wd" th:field="*{address}"></td>
+      </tr>
+      <tr>
+        <th class="cell_title">電話番号</th>
+        <th>&nbsp;:&nbsp;</th>
+        <td><input type="text" th:field="*{tel}"></td>
+      </tr>
+</table>
+<table class="errorcheck">
+    <tr th:if="${validationError}" th:each="error : ${validationError}">
+      <td style="color:red;" th:text="${error}"></td>
+    </tr>
+</table>
+<div class="center_button">
+<input type="submit" class="button" value="確認">
+<input type="button" class="button" value="戻る" onclick="location.href='/user/list'">
+</div>
+</form>
+</body>
+</html>

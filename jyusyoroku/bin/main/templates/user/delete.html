@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link href="/css/delete.css" rel="stylesheet"></link>
+<head>
+<meta charset="UTF-8">
+<title>住所録削除</title>
+</head>
+<body>
+<h1>住所録管理システム：住所録削除</h1>
+<form th:action="@{/user/delete}" th:object="${userUpdateRequest}" th:method="post">
+<table>
+      <tr>
+        <th>名前*</th>
+        <td><p th:text="*{name}"/></td>
+      </tr>
+      <tr>
+        <th>住所*</th>
+        <td><p th:text="*{address}"/></td>
+      </tr>
+      <tr>
+        <th>電話番号</th>
+        <td><p th:text="${#strings.substring(userUpdateRequest.tel, 0, 3)} + '-' + ${#strings.substring(userUpdateRequest.tel, 3, 7)} + '-' + ${#strings.substring(userUpdateRequest.tel, 7, 11)}"/></td>
+      </tr>
+</table>
+<input type="hidden" th:field="*{id}">
+<input type="hidden" th:field="*{name}">
+<input type="hidden" th:field="*{address}">
+<input type="hidden" th:field="*{tel}">
+<div class="center_button">
+<input type="submit" class="button" value="確認">
+<input type="button" class="button" value="戻る" onclick="location.href='/user/list'">
+</div>
+</form>
+</body>
+</html>

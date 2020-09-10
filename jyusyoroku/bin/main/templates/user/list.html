@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>住所録一覧</title>
+		<link href="/css/list.css" rel="stylesheet"></link>
+	</head>
+	<body>
+		<h1>住所録管理システム：住所録一覧</h1>
+
+		<!-- 新規登録部分 -->
+		<button class="addbutton" onclick="location.href='/user/add'">新規登録</button>
+
+
+		<!-- 検索部分 -->
+
+		<form class="searchbox" method="post" name="searchform" th:action="@{/user/search}" th:object="${formModel}">
+			<table class="searchtable" style="border-style: none;">
+				<tr style="border-style: none;">
+					<td style="border-style: none;">住所：</td>
+					<td style="border-style: none;"><input type="text" name="address" th:value="*{address}" class="searchtext"></td>
+				</tr>
+				<tr style="border-style: none;">
+					<td style="border-style: none;"></td>
+					<td style="border-style: none;"><input type="submit" value="検索" class="searchbtn"></td>
+				</tr>
+			</table>
+		</form>
+		<p/>
+
+		<!-- ページネーション部分 -->
+		<div>
+			<ul>
+				<!-- 前矢印 -->
+				<li style="display:inline;">
+					<span th:if="${page.first}">&lt;&lt;</span>
+					<a
+						th:if="${!page.first}"
+						th:href="@{/user/list(page = ${page.first}, address=${address})}"
+					>&lt;&lt;</a>
+				</li>
+				<li style="display:inline;">
+					<span th:if="${page.first}">&lt;</span>
+					<a
+						th:if="${!page.first}"
+						th:href="@{/user/list(page = (${page.number} - 1), address=${address})}"
+					>&lt;</a>
+				</li>
+
+				<!-- 数字部分1 -->
+				<li th:if="(${page.number} + 1) == 1 or (${page.number} + 1) == 2"
+					th:each="i : ${#numbers.sequence(0, mxpage - 1)}"
+					style="display:inline; margin-left:10px;">
+					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+				<a
+					th:if="${i} != ${page.number}"
+					th:href="@{/user/list(page = ${i}, address=${address})}"
+				><span th:text="${i+1}">1</span>
+				</a><span th:if="${i} != ${mxpage} - 1">|</span>
+				</li>
+
+				<!-- 数字部分3 -->
+				<li th:unless="((${page.number} + 1) == 1 or (${page.number} + 1) == 2)  or (${page.number} == ${page.totalPages - 1} or ${page.number} == ${page.totalPages - 2})"
+					th:each="i : ${#numbers.sequence(page.number - 2, page.number + 2)}"
+					style="display:inline; margin-left:10px;">
+					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+				<a
+					th:if="${i} != ${page.number}"
+					th:href="@{/user/list(page = ${i}, address=${address})}"
+				><span th:text="${i+1}">1</span>
+				</a><span th:if="${i} != ${page.number + 2}">|</span>
+				</li>
+
+				<!-- 数字部分2 -->
+				<li th:if="(${page.number} == ${page.totalPages - 1} or ${page.number} == ${page.totalPages - 2}) and !(${page.number} < 2)"
+					th:each="i : ${#numbers.sequence(mnpage, page.totalPages - 1)}"
+					style="display:inline; margin-left:10px;">
+					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+				<a
+					th:if="${i} != ${page.number}"
+					th:href="@{/user/list(page = ${i}, address=${address})}"
+				><span th:text="${i+1}">1</span>
+				</a><span th:if="${i} !=${page.totalPages} - 1">|</span>
+				</li>
+
+				<!-- 後矢印 -->
+				<li style="display:inline; margin-left:10px;">
+					<span th:if="${page.last}">&gt;</span>
+					<a
+						th:if="${!page.last}"
+						th:href="@{/user/list(page = (${page.number} + 1), address=${address})}"
+					>&gt;</a>
+				</li>
+				<li style="display:inline; margin-left:10px;">
+					<span th:if="${page.last}">&gt;&gt;</span>
+					<a
+						th:if="${!page.last}"
+						th:href="@{/user/list(page = ${page.totalPages - 1}, address=${address})}"
+					>&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- 一覧表示している部分 -->
+
+		<table class="listcss">
+			<thead>
+				<tr>
+					<th width="30px">No.</th>
+					<th width="150px">名前</th>
+					<th width="380px">住所</th>
+					<th width="200px">電話番号</th>
+					<th width="110px"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.id}"></td>
+					<td th:text="${user.name}"></td>
+					<td><div class="threereader" th:utext="${user.address} + ${tooltrip}"></div></td>
+					<td th:text="${#strings.substring(user.tel, 0, 3)} + '-' + ${#strings.substring(user.tel, 3, 7)} + '-' + ${#strings.substring(user.tel, 7, 11)}"></td>
+					<td class="borderset" >
+					<a th:href=@{/user/{id}/edit(id=${user.id})} type="button" class="tablebtn1">編集</a>
+					<a th:href=@{/user/{id}/delete(id=${user.id})} type="button" class="tablebtn2">削除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- ページネーション部分 -->
+		<div>
+			<ul>
+				<!-- 前矢印 -->
+				<li style="display:inline;">
+					<span th:if="${page.first}">&lt;&lt;</span>
+					<a
+						th:if="${!page.first}"
+						th:href="@{/user/list(page = ${page.first}, address=${address})}"
+					>&lt;&lt;</a>
+				</li>
+				<li style="display:inline;">
+					<span th:if="${page.first}">&lt;</span>
+					<a
+						th:if="${!page.first}"
+						th:href="@{/user/list(page = (${page.number} - 1), address=${address})}"
+					>&lt;</a>
+				</li>
+
+				<!-- 数字部分1 -->
+				<li th:if="(${page.number} + 1) == 1 or (${page.number} + 1) == 2"
+					th:each="i : ${#numbers.sequence(0, mxpage - 1)}"
+					style="display:inline; margin-left:10px;">
+					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+				<a
+					th:if="${i} != ${page.number}"
+					th:href="@{/user/list(page = ${i}, address=${address})}"
+				><span th:text="${i+1}">1</span>
+				</a><span th:if="${i} != ${mxpage} - 1">|</span>
+				</li>
+
+				<!-- 数字部分3 -->
+				<li th:unless="((${page.number} + 1) == 1 or (${page.number} + 1) == 2)  or (${page.number} == ${page.totalPages - 1} or ${page.number} == ${page.totalPages - 2})"
+					th:each="i : ${#numbers.sequence(page.number - 2, page.number + 2)}"
+					style="display:inline; margin-left:10px;">
+					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+				<a
+					th:if="${i} != ${page.number}"
+					th:href="@{/user/list(page = ${i}, address=${address})}"
+				><span th:text="${i+1}">1</span>
+				</a><span th:if="${i} != ${page.number + 2}">|</span>
+				</li>
+
+				<!-- 数字部分2 -->
+				<li th:if="(${page.number} == ${page.totalPages - 1} or ${page.number} == ${page.totalPages - 2}) and !(${page.number} < 2)"
+					th:each="i : ${#numbers.sequence(mnpage, page.totalPages - 1)}"
+					style="display:inline; margin-left:10px;">
+					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+				<a
+					th:if="${i} != ${page.number}"
+					th:href="@{/user/list(page = ${i}, address=${address})}"
+				><span th:text="${i+1}">1</span>
+				</a><span th:if="${i} !=${page.totalPages} - 1">|</span>
+				</li>
+
+				<!-- 後矢印 -->
+				<li style="display:inline; margin-left:10px;">
+					<span th:if="${page.last}">&gt;</span>
+					<a
+						th:if="${!page.last}"
+						th:href="@{/user/list(page = (${page.number} + 1), address=${address})}"
+					>&gt;</a>
+				</li>
+				<li style="display:inline; margin-left:10px;">
+					<span th:if="${page.last}">&gt;&gt;</span>
+					<a
+						th:if="${!page.last}"
+						th:href="@{/user/list(page = ${page.totalPages - 1}, address=${address})}"
+					>&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		<p></p>
+		<button class="addbutton" onclick="location.href='/user/add'">新規登録</button>
+	</body>
+</html>

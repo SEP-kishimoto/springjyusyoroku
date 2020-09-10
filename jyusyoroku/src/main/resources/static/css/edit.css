@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+body {
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1 {
+	font-size: 18px;
+	text-align: center;
+	margin-right: 200px
+
+}
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 13px;
+    margin-left: 350px;
+    margin-right: auto;
+}
+table th {
+	white-space: nowrap;
+	text-align: right;
+
+}
+table td {
+	width: 400px;
+	line-height: 1em;
+	padding: 0;
+}
+
+table input {
+  width: 50%;
+  height: 100%;
+  padding: 10 10;
+  text-align: left;
+}
+.cell_title {
+  border-right: 0;
+}
+.address_wd {
+	width: 100%;
+}
+
+.center_button {
+	text-align: center;
+	margin-left: 320px;
+}
+
+input {
+	text-align: center;
+}
+
+input.button {
+	width: 210px;
+	margin: 10px 10px;
+}
